@@ -1,0 +1,132 @@
+.root {
+	-color-parchment: #e5e2ca;
+	-color-unused-cell: #cdc0b4;
+	-color-grid-wrapper: #bbada0;
+	-color-base: #faf8ef;
+	-color-text-dark: #776e65;
+	-color-text-light: #f9f6f2;
+
+	-fx-font-family: "ClearSans";
+	-fx-font-size: 18pt;
+	-fx-font-weight: bold;
+	-fx-font-color: -color-bark;
+	-fx-box-border: transparent;
+	-fx-color: -color-parchment;
+	-fx-background-color: -color-base;
+	-fx-outer-border: -color-bark;
+	-fx-inner-border: transparent;
+	-fx-inner-border-horizontal: transparent;
+	-fx-body-color: -color-parchment;
+	-fx-body-color-bottomup: transparent;
+	-fx-mark-color: -color-accent;
+	-fx-accent: -color-accent;
+	-fx-focus-color: -color-accent;
+}
+
+.main-app-view {
+	-fx-background-color: -color-base;
+}
+
+.button {
+	-fx-background-color: -color-grid-wrapper;
+	-fx-text-fill: -color-base;
+	-fx-border-color: -color-text-dark;
+	-fx-border-width: 2;
+	-fx-background-radius: 5;
+	-fx-border-radius: 3;
+	/** Without this, the background color leaks out of the border a little bit. */
+	-fx-border-insets: 0 0 -1 0, 0 0 0 0;
+}
+
+.board-view {
+
+}
+
+.board-view-cell {
+    -fx-background-color: -color-unused-cell;
+    -fx-background-radius: 5;
+}
+
+.board-view-wrapper {
+    -fx-background-color: -color-grid-wrapper;
+    -fx-background-radius: 5;
+}
+
+.button:armed {
+	-fx-background-color: -color-grid-wrapper;
+}
+
+.cell2 {
+    -fx-font-size: 40pt;
+	-fx-background-color: #eee4da;
+	-fx-text-fill: -color-text-dark;
+}
+
+.cell4 {
+    -fx-font-size: 40pt;
+	-fx-background-color: #ede0c8;
+	-fx-text-fill: -color-text-dark;
+}
+
+.cell8 {
+    -fx-font-size: 40pt;
+    -fx-background-color: #f2b179;
+	-fx-text-fill: -color-text-light;
+}
+
+.cell16 {
+    -fx-font-size: 40pt;
+    -fx-background-color: #f59663;
+	-fx-text-fill: -color-text-light;
+}
+
+.cell32 {
+    -fx-font-size: 40pt;
+    -fx-background-color: #f67d5f;
+    -fx-text-fill: -color-text-light;
+}
+
+.cell64 {
+    -fx-font-size: 40pt;
+    -fx-background-color: #f65d3b;
+    -fx-text-fill: -color-text-light;
+}
+
+.cell128 {
+    -fx-font-size: 40pt;
+    -fx-background-color: #edcf72;
+    -fx-text-fill: -color-text-light;
+}
+
+.cell256 {
+    -fx-font-size: 40pt;
+    -fx-background-color: #eaca56;
+    -fx-text-fill: -color-text-light;
+}
+
+.cell512 {
+    -fx-font-size: 40pt;
+    -fx-background-color: #e7c53a;
+    -fx-text-fill: -color-text-light;
+}
+
+.cell1024{
+    -fx-font-size: 40pt;
+    -fx-background-color: #e3c01d;
+    -fx-text-fill: -color-text-light;
+}
+
+.cell2048 {
+  -fx-font-size: 40pt;
+  -fx-background-color: #e0bb01;
+  -fx-text-fill: -color-text-light;
+}
+
+.cell4096 {
+  -fx-font-size: 40pt;
+  -fx-background-color: #111111;
+  -fx-text-fill: -color-text-light;
+}
+
+
+
