@@ -32,7 +32,7 @@ public abstract class GameState {
         final int boardSize = this.context.getBoard().getSize();
         for (int row = 0; row < boardSize; row++) {
             for (int col = 0; col < boardSize; col++) {
-                for (String styleClass : StyleConstants.getCellStyles()) {
+                for (final String styleClass : StyleConstants.getCellStyles()) {
                     this.updateCellStyle(row, col, styleClass, false);
                 }
             }
@@ -50,12 +50,7 @@ public abstract class GameState {
         }
     }
 
-    protected void setCellValue(final int row, final int col) {
-        this.setCellModelValue(row, col, 0);
-        this.setCellViewValue(row, col, 0);
-    }
-
-    protected void setCellViewValue(final int row, final int col, int value) {
+    protected void setCellViewValue(final int row, final int col, final int value) {
         final BoardView chessBoardView = this.context.getBoardView();
         final Label cell = chessBoardView.getCell(row, col);
         if (value == 0) {
@@ -71,7 +66,7 @@ public abstract class GameState {
         }
     }
 
-    protected void setCellModelValue(final int row, final int col, int value) {
+    protected void setCellModelValue(final int row, final int col, final int value) {
         this.context.getBoard().setCell(row, col, value);
     }
 
@@ -94,9 +89,9 @@ public abstract class GameState {
         }
     }
 
-    protected void addBoardToUndoStack() {
+    protected void addBoardToUndoStack(final BoardModel board) {
         final BoardHistory history = this.context.getHistory();
-        history.addToUndoStack(this.context.getBoard());
+        history.addToUndoStack(board);
         history.clearRedoStack();
         this.updateUndoRedoButtons();
     }

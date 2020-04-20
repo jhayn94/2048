@@ -4,12 +4,16 @@ import game.model.BoardModel;
 import game.state.GameState;
 import javafx.scene.input.KeyCode;
 
+import java.util.Random;
+
 /**
  * This class contains methods to show or hide the application context menu.
  */
 public class ArrowKeyPressedState extends GameState {
 
     private final KeyCode keyCode;
+
+    private boolean changesMade;
 
     public ArrowKeyPressedState(final KeyCode keyCode) {
         super();
@@ -18,6 +22,9 @@ public class ArrowKeyPressedState extends GameState {
 
     @Override
     public void onEnter() {
+        this.changesMade = false;
+        final BoardModel oldBoard = this.context.getBoard().createCopy();
+
         if (KeyCode.UP == this.keyCode || KeyCode.W == this.keyCode) {
             this.handleUpPressed();
         } else if (KeyCode.DOWN == this.keyCode || KeyCode.S == this.keyCode) {
@@ -28,10 +35,13 @@ public class ArrowKeyPressedState extends GameState {
             this.handleRightPressed();
         }
 
+        if (this.changesMade) {
+            this.addBoardToUndoStack(oldBoard);
+            this.fillRandomCell();
+        }
+
         this.resetAppToMatchBoard();
-
-        this.printBoard();
-
+        this.updateUndoRedoButtons();
     }
 
     private void handleUpPressed() {
@@ -47,12 +57,12 @@ public class ArrowKeyPressedState extends GameState {
                 final int value = board.getCell(row, col);
                 if (value > 0) {
                     int newRow = row - 1;
-                    while (newRow > 0 && board.getCell(newRow, col) == 0) {
+                    while (newRow > -1 && board.getCell(newRow, col) == 0) {
                         newRow--;
                     }
-
-                    if (newRow != row) {
-                        board.setCell(newRow, col, value);
+                    if (row != newRow + 1) {
+                        this.changesMade = true;
+                        board.setCell(newRow + 1, col, value);
                         board.setCell(row, col, 0);
                     }
                 }
@@ -66,7 +76,8 @@ public class ArrowKeyPressedState extends GameState {
             for (int row = 0; row < BoardModel.DEFAULT_SIZE - 1; row++) {
                 final int cell = board.getCell(row, col);
                 final int cell2 = board.getCell(row + 1, col);
-                if (cell == cell2) {
+                if (cell == cell2 && cell > 0) {
+                    this.changesMade = true;
                     board.setCell(row, col, cell * 2);
                     board.setCell(row + 1, col, 0);
                 }
@@ -87,17 +98,18 @@ public class ArrowKeyPressedState extends GameState {
                 final int value = board.getCell(row, col);
                 if (value > 0) {
                     int newRow = row + 1;
-                    while (newRow < BoardModel.DEFAULT_SIZE - 1 && board.getCell(newRow, col) == 0) {
+                    while (newRow < BoardModel.DEFAULT_SIZE && board.getCell(newRow, col) == 0) {
                         newRow++;
                     }
-
-                    if (newRow != row) {
-                        board.setCell(newRow, col, value);
+                    if (row != newRow - 1) {
+                        this.changesMade = true;
+                        board.setCell(newRow - 1, col, value);
                         board.setCell(row, col, 0);
                     }
                 }
             }
         }
+
     }
 
     private void mergeCellsMovingDown() {
@@ -106,7 +118,8 @@ public class ArrowKeyPressedState extends GameState {
             for (int row = BoardModel.DEFAULT_SIZE - 1; row > 0; row--) {
                 final int cell = board.getCell(row, col);
                 final int cell2 = board.getCell(row - 1, col);
-                if (cell == cell2) {
+                if (cell == cell2 && cell > 0) {
+                    this.changesMade = true;
                     board.setCell(row, col, cell * 2);
                     board.setCell(row - 1, col, 0);
                 }
@@ -126,13 +139,13 @@ public class ArrowKeyPressedState extends GameState {
             for (int col = 1; col < BoardModel.DEFAULT_SIZE; col++) {
                 final int value = board.getCell(row, col);
                 if (value > 0) {
-                    int newCol = col ;
-                    while (newCol > 0 && board.getCell(row, newCol - 1) == 0) {
+                    int newCol = col - 1;
+                    while (newCol > -1 && board.getCell(row, newCol) == 0) {
                         newCol--;
                     }
-
-                    if (newCol != col) {
-                        board.setCell(row, newCol , value);
+                    if (col != newCol + 1) {
+                        this.changesMade = true;
+                        board.setCell(row, newCol + 1, value);
                         board.setCell(row, col, 0);
                     }
                 }
@@ -146,7 +159,8 @@ public class ArrowKeyPressedState extends GameState {
             for (int col = 0; col < BoardModel.DEFAULT_SIZE - 1; col++) {
                 final int cell = board.getCell(row, col);
                 final int cell2 = board.getCell(row, col + 1);
-                if (cell == cell2) {
+                if (cell == cell2 && cell > 0) {
+                    this.changesMade = true;
                     board.setCell(row, col, cell * 2);
                     board.setCell(row, col + 1, 0);
                 }
@@ -155,13 +169,9 @@ public class ArrowKeyPressedState extends GameState {
     }
 
     private void handleRightPressed() {
-        this.printBoard();
         this.clearGapsMovingRight();
-        this.printBoard();
         this.mergeCellsMovingRight();
-        this.printBoard();
         this.clearGapsMovingRight();
-        this.printBoard();
     }
 
     private void clearGapsMovingRight() {
@@ -171,11 +181,11 @@ public class ArrowKeyPressedState extends GameState {
                 final int value = board.getCell(row, col);
                 if (value > 0) {
                     int newCol = col + 1;
-                    while (newCol < BoardModel.DEFAULT_SIZE - 1 && board.getCell(row, newCol) == 0) {
+                    while (newCol < BoardModel.DEFAULT_SIZE && board.getCell(row, newCol) == 0) {
                         newCol++;
                     }
-
-                    if (newCol != col) {
+                    if (col != newCol - 1) {
+                        this.changesMade = true;
                         board.setCell(row, newCol - 1, value);
                         board.setCell(row, col, 0);
                     }
@@ -190,7 +200,8 @@ public class ArrowKeyPressedState extends GameState {
             for (int col = BoardModel.DEFAULT_SIZE - 1; col > 0; col--) {
                 final int cell = board.getCell(row, col);
                 final int cell2 = board.getCell(row, col - 1);
-                if (cell == cell2) {
+                if (cell == cell2 && cell > 0) {
+                    this.changesMade = true;
                     board.setCell(row, col, cell * 2);
                     board.setCell(row, col - 1, 0);
                 }
@@ -198,14 +209,19 @@ public class ArrowKeyPressedState extends GameState {
         }
     }
 
-    private void printBoard() {
-        for (int row = 0; row < BoardModel.DEFAULT_SIZE; row++) {
-            for (int col = 0; col < BoardModel.DEFAULT_SIZE; col++) {
-                System.out.print(this.context.getBoard().getCell(row, col) + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("------------");
+    private void fillRandomCell() {
+
+        final BoardModel board = this.context.getBoard();
+        final Random rng = new Random();
+        final boolean useTwo = rng.nextDouble() < .95;
+        int row, col;
+        do {
+            row = rng.nextInt(4);
+            col = rng.nextInt(4);
+        } while (board.getCell(row, col) > 0);
+
+        final int value = useTwo ? 2 : 4;
+        this.setCellModelValue(row, col, value);
     }
 
 }

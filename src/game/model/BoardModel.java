@@ -9,7 +9,7 @@ public class BoardModel {
 
     public static final int DEFAULT_SIZE = 4;
 
-    private int[][] cells;
+    private final int[][] cells;
 
     private final int size;
 
@@ -17,7 +17,7 @@ public class BoardModel {
         this(DEFAULT_SIZE);
     }
 
-    public BoardModel(int size) {
+    public BoardModel(final int size) {
         this.size = size;
         this.cells = new int[size][size];
         this.reset(this.size);
@@ -25,8 +25,8 @@ public class BoardModel {
 
     public void reset(final int size) {
         for (int i = 0; i < size; i++) {
-            for (int j = 0; i < size; i++) {
-                cells[j][i] = 0;
+            for (final int j = 0; i < size; i++) {
+                this.cells[j][i] = 0;
             }
         }
 
@@ -35,22 +35,22 @@ public class BoardModel {
         final int startRow2 = rng.nextInt(2) + 2;
         final int startCol1 = rng.nextInt(4);
         final int startCol2 = rng.nextInt(4);
-        cells[startCol1][startRow1] = 2;
-        cells[startCol2][startRow2] = 2;
+        this.cells[startCol1][startRow1] = 2;
+        this.cells[startCol2][startRow2] = 2;
     }
 
-    public void setCell(int row, int col, int value) {
+    public void setCell(final int row, final int col, final int value) {
         this.cells[col][row] = value;
     }
 
-    public int getCell(int row, int col) {
+    public int getCell(final int row, final int col) {
         return this.cells[col][row];
     }
 
     public BoardModel createCopy() {
         final BoardModel other = new BoardModel(this.size);
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; i < size; i++) {
+        for (int i = 0; i < this.size; i++) {
+            for (int j = 0; j < this.size; j++) {
                 other.cells[j][i] = this.cells[j][i];
             }
         }
@@ -58,6 +58,6 @@ public class BoardModel {
     }
 
     public int getSize() {
-        return size;
+        return this.size;
     }
 }

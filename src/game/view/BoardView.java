@@ -14,6 +14,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 
+import java.util.Arrays;
+
 /**
  * This class corresponds to the 4 x 3 button grid on the top left of the
  * screen. It contains numeric buttons 1 - 9 , which highlight cells where those
@@ -64,7 +66,7 @@ public class BoardView extends GridPane {
                 ApplicationStateContext.getInstance().changeState(new UndoActionState());
             } else if (keyCode == KeyCode.Y && event.isControlDown()) {
                 ApplicationStateContext.getInstance().changeState(new RedoActionState());
-            } else if (keyCode.isArrowKey() || keyCode.isLetterKey()) {
+            } else if (keyCode.isArrowKey() || Arrays.asList(KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D).contains(keyCode)) {
                 ApplicationStateContext.getInstance().changeState(new ArrowKeyPressedState(keyCode));
             }
         };

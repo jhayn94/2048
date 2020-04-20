@@ -1,6 +1,5 @@
 package game.state.model;
 
-import game.controller.ApplicationStateContext;
 import game.factory.ModelFactory;
 import game.model.BoardHistory;
 import game.model.BoardModel;
