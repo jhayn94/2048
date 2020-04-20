@@ -23,10 +23,6 @@
 	-fx-focus-color: -color-accent;
 }
 
-.main-app-view {
-	-fx-background-color: -color-base;
-}
-
 .button {
 	-fx-background-color: -color-grid-wrapper;
 	-fx-text-fill: -color-base;
@@ -36,10 +32,6 @@
 	-fx-border-radius: 3;
 	/** Without this, the background color leaks out of the border a little bit. */
 	-fx-border-insets: 0 0 -1 0, 0 0 0 0;
-}
-
-.board-view {
-
 }
 
 .board-view-cell {
@@ -57,73 +49,79 @@
 }
 
 .cell2 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
 	-fx-background-color: #eee4da;
 	-fx-text-fill: -color-text-dark;
 }
 
 .cell4 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
 	-fx-background-color: #ede0c8;
 	-fx-text-fill: -color-text-dark;
 }
 
 .cell8 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
     -fx-background-color: #f2b179;
 	-fx-text-fill: -color-text-light;
 }
 
 .cell16 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
     -fx-background-color: #f59663;
 	-fx-text-fill: -color-text-light;
 }
 
 .cell32 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
     -fx-background-color: #f67d5f;
     -fx-text-fill: -color-text-light;
 }
 
 .cell64 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
     -fx-background-color: #f65d3b;
     -fx-text-fill: -color-text-light;
 }
 
 .cell128 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
     -fx-background-color: #edcf72;
     -fx-text-fill: -color-text-light;
 }
 
 .cell256 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
     -fx-background-color: #eaca56;
     -fx-text-fill: -color-text-light;
 }
 
 .cell512 {
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
     -fx-background-color: #e7c53a;
     -fx-text-fill: -color-text-light;
 }
 
 .cell1024{
-    -fx-font-size: 40pt;
+    -fx-font-size: 32pt;
     -fx-background-color: #e3c01d;
     -fx-text-fill: -color-text-light;
 }
 
 .cell2048 {
-  -fx-font-size: 40pt;
+  -fx-font-size: 32pt;
   -fx-background-color: #e0bb01;
   -fx-text-fill: -color-text-light;
 }
 
 .cell4096 {
-  -fx-font-size: 40pt;
+  -fx-font-size: 32pt;
+  -fx-background-color: #111111;
+  -fx-text-fill: -color-text-light;
+}
+
+.cell5Digit {
+  -fx-font-size: 24pt;
   -fx-background-color: #111111;
   -fx-text-fill: -color-text-light;
 }

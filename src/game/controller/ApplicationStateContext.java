@@ -26,12 +26,15 @@ public class ApplicationStateContext {
 
     private BoardHistory history;
 
+    private long score;
+
     public ApplicationStateContext() {
     }
 
     public void initialize() {
         this.board = ModelFactory.getInstance().createBoard();
         this.history = ModelFactory.getInstance().createBoardHistory();
+        this.score = 0;
         this.currentState = new NewGameState();
         this.currentState.onEnter();
     }
@@ -50,7 +53,7 @@ public class ApplicationStateContext {
     }
 
     public BoardModel getBoard() {
-        return board;
+        return this.board;
     }
 
     public void setBoard(final BoardModel board) {
@@ -65,8 +68,16 @@ public class ApplicationStateContext {
         this.history = history;
     }
 
+    public long getScore() {
+        return this.score;
+    }
+
+    public void setScore(final long score) {
+        this.score = score;
+    }
+
     public InfoPane getInfoPane() {
-        return infoPane;
+        return this.infoPane;
     }
 
     public void setInfoPane(final InfoPane infoPane) {
@@ -74,7 +85,7 @@ public class ApplicationStateContext {
     }
 
     public BoardView getBoardView() {
-        return boardView;
+        return this.boardView;
     }
 
     public void setBoardView(final BoardView boardView) {

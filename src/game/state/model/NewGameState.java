@@ -26,7 +26,9 @@ public class NewGameState extends GameState {
         final BoardModel board = ModelFactory.getInstance().createBoard();
         this.context.setBoard(board);
         this.updateUndoRedoComponents();
-        this.resetAppToMatchBoard();
+        this.resetViewToMatchModel();
+
+        this.context.getInfoPane().getScoreButton().setText(String.valueOf(0));
     }
 
     private void updateUndoRedoComponents() {

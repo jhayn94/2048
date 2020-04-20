@@ -22,7 +22,7 @@ public class RedoActionState extends GameState {
             final BoardModel board = history.getBoardForRedo();
             history.addToUndoStack(this.context.getBoard());
             this.context.setBoard(board);
-            this.resetAppToMatchBoard();
+            this.resetViewToMatchModel();
             this.updateUndoRedoButtons();
         }
 

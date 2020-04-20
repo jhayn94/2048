@@ -7,6 +7,7 @@ import game.view.BoardView;
 import game.view.InfoPane;
 import game.view.util.StyleConstants;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.apache.logging.log4j.util.Strings;
 
@@ -62,7 +63,13 @@ public abstract class GameState {
         final String newCellValue = cell.getText();
 
         if (!newCellValue.isEmpty()) {
-            cell.getStyleClass().add("cell" + newCellValue);
+            if (Integer.parseInt(newCellValue) > 10000) {
+                cell.getStyleClass().add("cell5Digit");
+            } else if (Integer.parseInt(newCellValue) >= 4096) {
+                cell.getStyleClass().add("cell4096");
+            } else {
+                cell.getStyleClass().add("cell" + newCellValue);
+            }
         }
     }
 
@@ -77,7 +84,7 @@ public abstract class GameState {
         infoPane.getUndoButton().setDisable(history.isUndoStackEmpty());
     }
 
-    protected void resetAppToMatchBoard() {
+    protected void resetViewToMatchModel() {
         final BoardModel board = this.context.getBoard();
         final int boardSize = board.getSize();
         this.clearHighlightedCells();
@@ -87,6 +94,8 @@ public abstract class GameState {
                 this.setCellViewValue(row, col, valueForCell);
             }
         }
+        final Button scoreButton = this.context.getInfoPane().getScoreButton();
+        scoreButton.setText(String.valueOf(this.context.getScore()));
     }
 
     protected void addBoardToUndoStack(final BoardModel board) {

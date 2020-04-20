@@ -25,8 +25,6 @@ import java.util.Arrays;
  */
 public class BoardView extends GridPane {
 
-    private static final String CSS_CLASS = "board-view";
-
     private static final double PADDING_FOR_PANE = 15;
 
     private static final double DEFAULT_WIDTH = 550;
@@ -47,7 +45,6 @@ public class BoardView extends GridPane {
     }
 
     private void configure() {
-        this.getStyleClass().add(CSS_CLASS);
         this.setPadding(new Insets(PADDING_FOR_PANE));
         this.setHgap(40);
         this.setVgap(40);

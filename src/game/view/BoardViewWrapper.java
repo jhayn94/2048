@@ -1,9 +1,6 @@
 package game.view;
 
 import game.factory.LayoutFactory;
-import game.model.BoardModel;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -17,9 +14,7 @@ public class BoardViewWrapper extends GridPane {
 
     private static final String CSS_CLASS = "board-view-wrapper";
 
-    private static final double PADDING_FOR_PANE = 15;
-
-    private static final double DEFAULT_WIDTH = 575;
+    private static final double SIZE = 575;
 
     public BoardViewWrapper() {
         this.configure();
@@ -27,9 +22,10 @@ public class BoardViewWrapper extends GridPane {
 
     private void configure() {
         this.getStyleClass().add(CSS_CLASS);
-        this.setPadding(new Insets(PADDING_FOR_PANE));
-        this.setMinWidth(DEFAULT_WIDTH);
-        this.setMaxWidth(DEFAULT_WIDTH);
+        this.setMinWidth(SIZE);
+        this.setMaxWidth(SIZE);
+        this.setMaxHeight(SIZE);
+        this.setMinHeight(SIZE);
         this.createChildElements();
     }
 

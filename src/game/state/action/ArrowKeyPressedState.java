@@ -40,7 +40,7 @@ public class ArrowKeyPressedState extends GameState {
             this.fillRandomCell();
         }
 
-        this.resetAppToMatchBoard();
+        this.resetViewToMatchModel();
         this.updateUndoRedoButtons();
     }
 
@@ -80,6 +80,7 @@ public class ArrowKeyPressedState extends GameState {
                     this.changesMade = true;
                     board.setCell(row, col, cell * 2);
                     board.setCell(row + 1, col, 0);
+                    this.context.setScore(this.context.getScore() + (cell * 2));
                 }
             }
         }
@@ -122,6 +123,7 @@ public class ArrowKeyPressedState extends GameState {
                     this.changesMade = true;
                     board.setCell(row, col, cell * 2);
                     board.setCell(row - 1, col, 0);
+                    this.context.setScore(this.context.getScore() + (cell * 2));
                 }
             }
         }
@@ -163,6 +165,7 @@ public class ArrowKeyPressedState extends GameState {
                     this.changesMade = true;
                     board.setCell(row, col, cell * 2);
                     board.setCell(row, col + 1, 0);
+                    this.context.setScore(this.context.getScore() + (cell * 2));
                 }
             }
         }
@@ -204,13 +207,13 @@ public class ArrowKeyPressedState extends GameState {
                     this.changesMade = true;
                     board.setCell(row, col, cell * 2);
                     board.setCell(row, col - 1, 0);
+                    this.context.setScore(this.context.getScore() + (cell * 2));
                 }
             }
         }
     }
 
     private void fillRandomCell() {
-
         final BoardModel board = this.context.getBoard();
         final Random rng = new Random();
         final boolean useTwo = rng.nextDouble() < .95;

@@ -15,16 +15,16 @@ import org.apache.logging.log4j.Logger;
 /** Entry point for the execution of the project. */
 public class Executable extends Application {
 
-	private static final double DEFAULT_STAGE_WIDTH = 600;
+	private static final double DEFAULT_STAGE_WIDTH = 625;
 
-	private static final int DEFAULT_STAGE_HEIGHT = 750;
+	private static final int DEFAULT_STAGE_HEIGHT = 775;
 
 	private static final Logger LOG = LogManager.getLogger(Executable.class);
 
 	@Override
 	public void start(final Stage stage) {
 		final MainApplicationView mainAppView = LayoutFactory.getInstance().createMainApplicationView();
-		final Scene scene = this.createScene(mainAppView);
+		final Scene scene = Executable.createScene(mainAppView);
 		this.configureStage(stage, scene);
 
 		// Initializes the state context with default states + behaviors.
@@ -38,7 +38,7 @@ public class Executable extends Application {
 	/**
 	 * Creates and returns a Scene, using the given Parent object as a root element.
 	 */
-	private Scene createScene(final Region root) {
+	private static Scene createScene(final Region root) {
 		final Scene scene = new Scene(root);
 		scene.getStylesheets().add(ResourceConstants.APPLICATION_CSS);
 		return scene;

@@ -8,7 +8,6 @@ import game.view.util.LabelConstants;
 import game.view.util.TooltipConstants;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 
@@ -19,11 +18,11 @@ public class InfoPane extends HBox {
 
     private static final int PADDING_FOR_PANE = 15;
 
+    private static final int CHILD_ELEMENT_SPACING = PADDING_FOR_PANE + 10;
+
     private static final int DEFAULT_WIDTH = 320;
 
-    private static final int MIN_BUTTON_HEIGHT = 75;
-
-    private static final int MIN_BUTTON_WIDTH = 75;
+    private static final int ELEMENT_SIZE = 100;
 
     private Button undoButton;
 
@@ -31,16 +30,15 @@ public class InfoPane extends HBox {
 
     private Button resetButton;
 
-    private TextArea scoreTextArea;
-
-    private TextArea bestScoreTextArea;
+    // Just so styling the same is easy, button doesn't do anything.
+    private Button scoreButton;
 
     public InfoPane() {
         this.configure();
     }
 
-    public Button getResetButton() {
-        return this.resetButton;
+    public Button getScoreButton() {
+        return this.scoreButton;
     }
 
     public Button getUndoButton() {
@@ -52,8 +50,7 @@ public class InfoPane extends HBox {
     }
 
     private void configure() {
-        this.setPadding(new Insets(PADDING_FOR_PANE));
-        this.setSpacing(PADDING_FOR_PANE);
+        this.setPadding(new Insets(PADDING_FOR_PANE, PADDING_FOR_PANE, PADDING_FOR_PANE, 1));
         this.setMinWidth(DEFAULT_WIDTH);
         this.setMaxWidth(DEFAULT_WIDTH);
         this.createChildElements();
@@ -63,6 +60,7 @@ public class InfoPane extends HBox {
         this.createUndoButton();
         this.createRedoButton();
         this.createResetButton();
+        this.createScoreButton();
     }
 
     private void createUndoButton() {
@@ -70,9 +68,10 @@ public class InfoPane extends HBox {
         this.undoButton.setFocusTraversable(false);
         this.undoButton.setText(LabelConstants.UNDO);
         this.undoButton.setTooltip(new Tooltip(TooltipConstants.UNDO));
-        this.undoButton.setMinHeight(MIN_BUTTON_HEIGHT);
-        this.undoButton.setMinWidth(MIN_BUTTON_WIDTH);
+        this.undoButton.setMinHeight(ELEMENT_SIZE);
+        this.undoButton.setMinWidth(ELEMENT_SIZE);
         this.undoButton.setOnAction(event -> ApplicationStateContext.getInstance().changeState(new UndoActionState()));
+        HBox.setMargin(this.undoButton, new Insets(0, CHILD_ELEMENT_SPACING, 0, 0));
         this.getChildren().add(this.undoButton);
     }
 
@@ -81,9 +80,10 @@ public class InfoPane extends HBox {
         this.redoButton.setFocusTraversable(false);
         this.redoButton.setText(LabelConstants.REDO);
         this.redoButton.setTooltip(new Tooltip(TooltipConstants.REDO));
-        this.redoButton.setMinHeight(MIN_BUTTON_HEIGHT);
-        this.redoButton.setMinWidth(MIN_BUTTON_WIDTH);
+        this.redoButton.setMinHeight(ELEMENT_SIZE);
+        this.redoButton.setMinWidth(ELEMENT_SIZE);
         this.redoButton.setOnAction(event -> ApplicationStateContext.getInstance().changeState(new RedoActionState()));
+        HBox.setMargin(this.redoButton, new Insets(0, CHILD_ELEMENT_SPACING, 0, 0));
         this.getChildren().add(this.redoButton);
     }
 
@@ -92,9 +92,20 @@ public class InfoPane extends HBox {
         this.resetButton.setFocusTraversable(false);
         this.resetButton.setText(LabelConstants.RESET);
         this.resetButton.setTooltip(new Tooltip(TooltipConstants.RESET));
-        this.resetButton.setMinHeight(MIN_BUTTON_HEIGHT);
-        this.resetButton.setMinWidth(MIN_BUTTON_WIDTH);
+        this.resetButton.setMinHeight(ELEMENT_SIZE);
+        this.resetButton.setMinWidth(ELEMENT_SIZE);
         this.resetButton.setOnAction(event -> ApplicationStateContext.getInstance().changeState(new NewGameState()));
+        HBox.setMargin(this.resetButton, new Insets(0, CHILD_ELEMENT_SPACING, 0, 0));
         this.getChildren().add(this.resetButton);
+    }
+
+    private void createScoreButton() {
+        this.scoreButton = new Button();
+        this.scoreButton.setFocusTraversable(false);
+        this.scoreButton.setText(String.valueOf(0));
+        this.scoreButton.setTooltip(new Tooltip(TooltipConstants.RESET));
+        this.scoreButton.setMinHeight(ELEMENT_SIZE);
+        this.scoreButton.setMinWidth(ELEMENT_SIZE * 2);
+        this.getChildren().add(this.scoreButton);
     }
 }
